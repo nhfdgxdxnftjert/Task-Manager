@@ -1,0 +1,46 @@
+# models.py
+
+class Task:
+    def __init__(self, id, title, description, status):
+        self.id = id
+        self.title = title
+        self.description = description
+        self.status = status
+
+# repositories.py
+
+class TaskRepository:
+    def __init__(self):
+        self.tasks = []
+
+    def create_task(self, title, description):
+        new_id = len(self.tasks) + 1
+        task = Task(new_id, title, description, "To Do")
+        self.tasks.append(task)
+        return task
+
+    def get_all_tasks(self):
+        return self.tasks
+
+    def get_task_by_id(self, task_id):
+        for task in self.tasks:
+            if task.id == task_id:
+                return task
+        return None
+
+    def update_task_status(self, task_id, new_status):
+        task = self.get_task_by_id(task_id)
+        if task:
+            task.status = new_status
+
+    def delete_task(self, task_id):
+        task = self.get_task_by_id(task_id)
+        if task:
+            self.tasks.remove(task)
+
+# Пример использования
+
+# Создание экземпляра репозитория задач
+task_repository = TaskRepository()
+
+# Создание 
